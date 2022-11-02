@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 <head>
     <meta charset="UTF-8">
     <title>All films</title>
 </head>
 <body>
+{% block content %}
 {% for film in films %}
     <h1>{{ film.title }}</h1>
     <h1>{{ film.director }}</h1>
@@ -14,6 +14,6 @@
         <button>Detail_view</button>
     </a>
 {% endfor %}
-
+{% endblock %}
 </body>
 </html>

@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from datetime import datetime
-from main.models import Film
+
+from main.forms import DirectorForm, FilmForm
+from main.models import Film, Director
 
 
 def about_us(request):
@@ -28,3 +30,34 @@ def film_view(request, id):
     context = {}
     context['film'] = Film.objects.get(id=id)
     return render(request, 'film.html', context=context)
+
+
+def director_films(request, director_id):
+    director = Director.objects.get(id=director_id)
+    films = Film.objects.filter(director_id=director)
+    context = {}
+    context['films_director'] = films
+    context['director'] = director
+    return render(request, 'director_films.html', context=context)
+
+
+def create_director(request):
+    if request.method == "POST":
+        form = DirectorForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    return render(request, 'create_director.html', context={
+        'form': DirectorForm()
+    })
+
+
+def create_film(request):
+    if request.method == "POST":
+        form = FilmForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    return render(request, 'create_film.html', context={
+        'form': FilmForm()
+    })

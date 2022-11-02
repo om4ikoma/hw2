@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+<head>
+    <meta charset="UTF-8">
+    <title>Director films</title>
+</head>
+<body>
+{% block content %}
+<h1>{{ director.name }}</h1>
+{% for film in films_director %}
+    <h2>{{ film.title }}</h2>
+    <h2>{{ film.director }}</h2>
+    <h2>{{ film.rating }}</h2>
+    <h2>{{ film.duration }}</h2>
+{% endfor %}
+{% endblock %}
+</body>
